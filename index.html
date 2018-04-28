@@ -28,13 +28,13 @@
             game.load.spritesheet("cannon", "assets/cannon.png", 79, 84, 5);
 
             //load emojis
-            game.load.spritesheet("cat", "assets/cat-emoji.png", 300, 300, 20);
-            game.load.spritesheet("heart", "assets/heart-emoji.png", 300, 300, 20);
-            game.load.spritesheet("poop", "assets/poop-emoji.png", 480, 480, 20);
-            game.load.spritesheet("screaming", "assets/screaming-emoji.png", 300, 300, 20);
-            game.load.spritesheet("tears", "assets/tears-emoji.png", 300, 300, 20);
-            game.load.spritesheet("tongue", "assets/tongue-emoji.png", 300, 300, 20);
-            game.load.spritesheet("upsidedown", "assets/upsidedown-emoji.png", 480, 480, 20);
+            game.load.spritesheet("cat", "assets/cat-emoji.png", 300, 300);
+            game.load.spritesheet("heart", "assets/heart-emoji.png", 300, 300);
+            game.load.spritesheet("poop", "assets/poop-emoji.png", 480, 480);
+            game.load.spritesheet("screaming", "assets/screaming-emoji.png", 300, 300);
+            game.load.spritesheet("tears", "assets/tears-emoji.png", 300, 300);
+            game.load.spritesheet("tongue", "assets/tongue-emoji.png", 300, 300);
+            game.load.spritesheet("upsidedown", "assets/upsidedown-emoji.png", 480, 480);
 
 
         }
@@ -53,13 +53,27 @@
            this.cannon.bringToTop(this);
 
            //emojis
-            this.cat = game.add.sprite(800, 2500, "cat");
-            this.heart = game.add.sprite(800, 2800, "heart");
-            this.poop = game.add.sprite(1000, 2100, "poop");
-            this.screaming = game.add.sprite(800, 2500, "screaming");
-            this.tears = game.add.sprite(500, 2000, "tears");
-            this.tongue = game.add.sprite(800, 2500, "tongue");
-            this.upsidedown = game.add.sprite(800, 2500, "upsidedown");
+            this.cat = game.add.sprite(510, 40, "cat");
+            this.cat.bringToTop(this);
+            this.cat.scale.setTo(0.15, 0.15);
+            this.heart = game.add.sprite(560, 40, "heart");
+            this.heart.bringToTop(this);
+            this.heart.scale.setTo(0.15, 0.15);
+            this.poop = game.add.sprite(580, 40, "poop");
+            this.poop.bringToTop(this);
+            this.poop.scale.setTo(0.13, 0.13);
+            this.screaming = game.add.sprite(600, 40, "screaming");
+            this.screaming.bringToTop(this);
+            this.screaming.scale.setTo(0.15, 0.15);
+            this.tears = game.add.sprite(680, 40, "tears");
+            this.tears.bringToTop(this);
+            this.tears.scale.setTo(0.15, 0.15);
+            this.tongue = game.add.sprite(700, 40, "tongue");
+            this.tongue.bringToTop(this);
+            this.tongue.scale.setTo(0.15, 0.15);
+            this.upsidedown = game.add.sprite(200, 40, "upsidedown");
+            this.upsidedown.bringToTop(this);
+            this.upsidedown.scale.setTo(0.15, 0.15);
 
 
         }
