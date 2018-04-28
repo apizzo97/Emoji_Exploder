@@ -25,7 +25,7 @@
 
             //load cannon and cannon wheel
             game.load.image("cannon_wheel", "assets/cannon-wheel.png", 161, 161, 10);
-            game.load.spritesheet("cannon", "assets/cannon.png", 79, 84, 5);
+            game.load.spritesheet("cannon", "assets/cannon.png", 361, 168, 5);
 
             //load emojis
             game.load.spritesheet("cat", "assets/cat-emoji.png", 300, 300);
@@ -45,12 +45,15 @@
             this.background.sendToBack(this);
 
             //cannon wheel
-            this.cannon_wheel = game.add.sprite(27, 200, "cannon_wheel");
+            this.cannon_wheel = game.add.sprite(25, 250, "cannon_wheel");
             this.cannon_wheel.moveUp(this);
+            this.cannon_wheel.scale.setTo(.3,.3);
 
             //cannon
-           this.cannon = game.add.sprite(8, 205, "cannon");
+           this.cannon = game.add.sprite(15, 260, "cannon");
            this.cannon.bringToTop(this);
+           this.cannon.scale.setTo(.35, .35);
+           this.cannon.anchor.setTo(.05,.6);
 
            //emojis
             this.cat = game.add.sprite(510, 40, "cat");
