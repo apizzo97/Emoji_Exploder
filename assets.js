@@ -28,18 +28,16 @@ var emojiAssets = {
 
 };
 
-var cannonAssests = {
+var cannonAssets = {
 
     preload: function () {
-        game.load.spritesheet("cannon", "assets/cannon.png", 79, 113, 40);
-        game.load.spritesheet("cannon_wheel", "assets/cannon-wheel.png", 45, 47, 10);
         game.load.spritesheet("ball", "assets/cannonball.png", 24, 23, 10);
 
     },
 
     create: function () {
-        this.cannon = game.add.sprite(100, 800, "cannon");
-        this.cannon_wheel = game.add.sprite(50, 700, "cannon_wheel");
+
+
     }
 };
 

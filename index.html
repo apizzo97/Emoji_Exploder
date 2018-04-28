@@ -3,14 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <title>Emoji Exploder</title>
-    <style>*{padding: 5px; margins: 5px;}</style>
+    <style>*{padding: 0px; margins: 0px;}</style>
     <script src="phaser.min.js"></script>
 </head>
 <body>
     <script>
-        var game = new Phaser.Game(1280,720, Phaser.AUTO, "",
-            {create: create, update: update, render: render
+        var game = new Phaser.Game(480,320, Phaser.AUTO, "",
+            {preload: preload, create: create, update: update
             });
+
+        function preload(){
+            console.log(game);
+            //make responsive
+            game.scale.pageAlignHorizontally = true;
+            game.scale.pageAlignVertically = true;
+            game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+
+            //load stuff
+            game.stage.backgroundColor = ("#FFFFFF");
+            game.load.image("background", "assets/background.png" );
+            game.load.image("cannon_wheel", "assets/cannon-wheel.png", 37, 37, 5);
+            game.load.spritesheet("cannon", "assets/cannon.png", 79, 84, 5);
+
+
+        }
+        function create(){
+            console.log(game);
+            //background
+            this.background = game.add.tileSprite(0, 0,480,320,"background");
+            this.background.sendToBack(this);
+
+            //cannon wheel
+            this.cannon_wheel = game.add.sprite(27, 255, "cannon_wheel");
+            this.cannon_wheel.moveUp(this);
+
+            //cannon
+           this.cannon = game.add.sprite(8, 205, "cannon");
+           this.cannon.bringToTop(this);
+
+
+        }
+        function update(){
+
+
+        }
 
     </script>
 
