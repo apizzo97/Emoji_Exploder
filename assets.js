@@ -28,19 +28,6 @@ var emojiAssets = {
 
 };
 
-var cannonAssets = {
-
-    preload: function () {
-        game.load.spritesheet("ball", "assets/cannonball.png", 24, 23, 10);
-
-    },
-
-    create: function () {
-
-
-    }
-};
-
 
 var emoji_motion = new Function()
 
