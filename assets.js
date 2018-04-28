@@ -42,3 +42,12 @@ var cannonAssests = {
         this.cannon_wheel = game.add.sprite(50, 700, "cannon_wheel");
     }
 };
+
+
+var emoji_motion = new Function() {
+
+    create: function () {
+        this.sprite.anchor.set(0.5)
+        
+    }
+}
