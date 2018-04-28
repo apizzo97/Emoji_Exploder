@@ -44,10 +44,11 @@ var cannonAssests = {
 };
 
 
-var emoji_motion = new Function() {
+var emoji_motion = new Function()
 
     create: function () {
         this.sprite.anchor.set(0.5)
-        
+
+
     }
-}
+
