@@ -24,7 +24,7 @@
             game.load.image("background", "assets/background.png" );
 
             //load cannon and cannon wheel
-            game.load.image("cannon_wheel", "assets/cannon-wheel.png", 37, 37, 5);
+            game.load.image("cannon_wheel", "assets/cannon-wheel.png", 161, 161, 10);
             game.load.spritesheet("cannon", "assets/cannon.png", 79, 84, 5);
 
             //load emojis
@@ -45,7 +45,7 @@
             this.background.sendToBack(this);
 
             //cannon wheel
-            this.cannon_wheel = game.add.sprite(27, 255, "cannon_wheel");
+            this.cannon_wheel = game.add.sprite(27, 200, "cannon_wheel");
             this.cannon_wheel.moveUp(this);
 
             //cannon
