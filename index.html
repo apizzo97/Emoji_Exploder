@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Emoji Exploder</title>
-    <style>*{padding: 0px; margins: 0px;}</style>
+    <style>*{padding: 5px; margins: 5px;}</style>
     <script src="phaser.min.js"></script>
 </head>
 <body>
@@ -15,17 +15,17 @@
         function preload(){
             console.log(game);
             //make responsive
-            //game.scale.pageAlignHorizontally = true;
-            //game.scale.pageAlignVertically = true;
-            //game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+            game.scale.pageAlignHorizontally = true;
+            game.scale.pageAlignVertically = true;
+            game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 
             //load background
             game.stage.backgroundColor = ("#FFFFFF");
             game.load.image("background", "assets/background.png" );
 
             //load cannon and cannon wheel
-            game.load.image("cannon_wheel", "assets/cannon-wheel.png", 161, 161, 10);
-            game.load.image("cannon", "assets/cannon.png", 361, 168, 5);
+            game.load.image("cannon_wheel", "assets/cannon-wheel.png");
+            game.load.image("cannon", "assets/cannon.png");
 
             //load emojis
             game.load.image("cat", "assets/cat-emoji.png");
@@ -55,7 +55,7 @@
         function create(){
             console.log(game);
             //background
-            background = game.add.tileSprite(0, 0,480,320,"background");
+            background = game.add.tileSprite(0, 0,1400,700,"background");
 
             //cannon wheel
             cannon_wheel = game.add.sprite(25, 250, "cannon_wheel");
