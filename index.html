@@ -17,7 +17,7 @@
             //make responsive
             game.scale.pageAlignHorizontally = true;
             game.scale.pageAlignVertically = true;
-            game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+            game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
 
             //load background
             game.stage.backgroundColor = ("#FFFFFF");
@@ -34,7 +34,11 @@
             game.load.image("screaming", "assets/screaming-emoji.png");
             game.load.image("tears", "assets/tears-emoji.png");
             game.load.image("tongue", "assets/tongue-emoji.png");
-            game.load.image("upsidedown", "assets/upsidedown-emoji.png");
+            game.load.image("upsideDown", "assets/upsidedown-emoji.png");
+
+            //load arrows
+            game.load.image("arrowRight", "assets/triangle-right.png");
+            game.load.image("arrowLeft", "assets/triangle-left.png");
 
 
         }
@@ -49,6 +53,9 @@
         var tears;
         var tongue;
         var upsideDown;
+        var score = 0;
+        var textStyle;
+
 
 
 
