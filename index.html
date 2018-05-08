@@ -8,16 +8,16 @@
 </head>
 <body>
     <script>
-        var game = new Phaser.Game(480,320, Phaser.AUTO, "",
+        var game = new Phaser.Game(1400, 700, Phaser.AUTO, "",
             {preload: preload, create: create, update: update
             });
 
         function preload(){
             console.log(game);
             //make responsive
-            game.scale.pageAlignHorizontally = true;
-            game.scale.pageAlignVertically = true;
-            game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+            //game.scale.pageAlignHorizontally = true;
+            //game.scale.pageAlignVertically = true;
+            //game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 
             //load background
             game.stage.backgroundColor = ("#FFFFFF");
@@ -25,58 +25,67 @@
 
             //load cannon and cannon wheel
             game.load.image("cannon_wheel", "assets/cannon-wheel.png", 161, 161, 10);
-            game.load.spritesheet("cannon", "assets/cannon.png", 361, 168, 5);
+            game.load.image("cannon", "assets/cannon.png", 361, 168, 5);
 
             //load emojis
-            game.load.spritesheet("cat", "assets/cat-emoji.png", 300, 300);
-            game.load.spritesheet("heart", "assets/heart-emoji.png", 300, 300);
-            game.load.spritesheet("poop", "assets/poop-emoji.png", 480, 480);
-            game.load.spritesheet("screaming", "assets/screaming-emoji.png", 300, 300);
-            game.load.spritesheet("tears", "assets/tears-emoji.png", 300, 300);
-            game.load.spritesheet("tongue", "assets/tongue-emoji.png", 300, 300);
-            game.load.spritesheet("upsidedown", "assets/upsidedown-emoji.png", 480, 480);
+            game.load.image("cat", "assets/cat-emoji.png");
+            game.load.image("heart", "assets/heart-emoji.png");
+            game.load.image("poop", "assets/poop-emoji.png");
+            game.load.image("screaming", "assets/screaming-emoji.png");
+            game.load.image("tears", "assets/tears-emoji.png");
+            game.load.image("tongue", "assets/tongue-emoji.png");
+            game.load.image("upsidedown", "assets/upsidedown-emoji.png");
 
 
         }
+
+        var background;
+        var cannon_wheel;
+        var cannon;
+        var cat;
+        var heart;
+        var poop;
+        var scream;
+        var tears;
+        var tongue;
+        var upsideDown;
+
+
+
         function create(){
             console.log(game);
             //background
-            this.background = game.add.tileSprite(0, 0,480,320,"background");
-            this.background.sendToBack(this);
+            background = game.add.tileSprite(0, 0,480,320,"background");
 
             //cannon wheel
-            this.cannon_wheel = game.add.sprite(25, 250, "cannon_wheel");
-            this.cannon_wheel.moveUp(this);
-            this.cannon_wheel.scale.setTo(.3,.3);
+            cannon_wheel = game.add.sprite(25, 250, "cannon_wheel");
+            cannon_wheel.moveUp(cannon_wheel);
 
             //cannon
-           this.cannon = game.add.sprite(15, 260, "cannon");
-           this.cannon.bringToTop(this);
-           this.cannon.scale.setTo(.35, .35);
-           this.cannon.anchor.setTo(.05,.6);
+           cannon = game.add.sprite(15, 260, "cannon");
+           cannon.anchor.setTo(.05,.6);
 
            //emojis
-            this.cat = game.add.sprite(510, 40, "cat");
-            this.cat.bringToTop(this);
-            this.cat.scale.setTo(0.15, 0.15);
-            this.heart = game.add.sprite(560, 40, "heart");
-            this.heart.bringToTop(this);
-            this.heart.scale.setTo(0.15, 0.15);
-            this.poop = game.add.sprite(580, 40, "poop");
-            this.poop.bringToTop(this);
-            this.poop.scale.setTo(0.13, 0.13);
-            this.screaming = game.add.sprite(600, 40, "screaming");
-            this.screaming.bringToTop(this);
-            this.screaming.scale.setTo(0.15, 0.15);
-            this.tears = game.add.sprite(680, 40, "tears");
-            this.tears.bringToTop(this);
-            this.tears.scale.setTo(0.15, 0.15);
-            this.tongue = game.add.sprite(700, 40, "tongue");
-            this.tongue.bringToTop(this);
-            this.tongue.scale.setTo(0.15, 0.15);
-            this.upsidedown = game.add.sprite(200, 40, "upsidedown");
-            this.upsidedown.bringToTop(this);
-            this.upsidedown.scale.setTo(0.15, 0.15);
+            cat = game.add.sprite(510, 40, "cat");
+            heart = game.add.sprite(560, 40, "heart");
+            poop = game.add.sprite(580, 40, "poop");
+            scream = game.add.sprite(600, 40, "screaming");
+            tears = game.add.sprite(680, 40, "tears");
+            tongue = game.add.sprite(700, 40, "tongue");
+            upsideDown = game.add.sprite(200, 40, "upsidedown");
+
+            //add physics
+            game.Physics.startSystem(Phaser.Physics.ARCADE);
+            game.physics.enable(cannon, Phaser.Physics.ARCADE);
+            game.physics.enable(cat, Phaser.Physics.ARCADE);
+            game.physics.enable(heart, Phaser.Physics.ARCADE);
+            game.physics.enable(poop, Phaser.Physics.ARCADE);
+            game.physics.enable(scream, Phaser.Physics.ARCADE);
+            game.physics.enable(tears, Phaser.Physics.ARCADE);
+            game.physics.enable(tongue, Phaser.Physics.ARCADE);
+            game.physics.enable(upsideDown, Phaser.Physics.ARCADE);
+
+
 
 
         }
