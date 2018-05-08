@@ -3,85 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <title>Emoji Exploder</title>
-    <style>*{padding: 5px; margins: 5px;}</style>
+    <style>*{padding: 0px; margins: 0px;}</style>
     <script src="phaser.min.js"></script>
 </head>
 <body>
-<script>
-    var game = new Phaser.Game(1400,700, Phaser.AUTO, "",
-        {preload: preload, create: create, update: update
-        });
+    <script>
+        var game = new Phaser.Game(480,320, Phaser.AUTO, "",
+            {preload: preload, create: create, update: update
+            });
 
-    function preload(){
-        console.log(game);
-        //make responsive
-        // game.scale.pageAlignHorizontally = true;
-        //game.scale.pageAlignVertically = true;
-        //game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        function preload(){
+            console.log(game);
+            //make responsive
+            game.scale.pageAlignHorizontally = true;
+            game.scale.pageAlignVertically = true;
+            game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 
-        //load background
-        game.stage.backgroundColor = ("#FFFFFF");
-        game.load.image("background", "assets/background.png", 1400, 700);
+            //load background
+            game.stage.backgroundColor = ("#FFFFFF");
+            game.load.image("background", "assets/background.png" );
 
-        //load cannon, cannon wheel and cannon ball
-        game.load.image("cannon_wheel", "assets/cannon-wheel.png", 83, 83);
-        game.load.spritesheet("cannon", "assets/cannon.png", 210, 95);
-        game.load.spritesheet("cannonball", "assets/cannonball.png", 32, 32);
+            //load cannon and cannon wheel
+            game.load.image("cannon_wheel", "assets/cannon-wheel.png", 161, 161, 10);
+            game.load.spritesheet("cannon", "assets/cannon.png", 361, 168, 5);
 
-        //load emojis
-        game.load.spritesheet("cat", "assets/cat-emoji.png", 85, 79);
-        game.load.spritesheet("heart", "assets/heart-emoji.png", 86, 86);
-        game.load.spritesheet("poop", "assets/poop-emoji.png", 86, 79);
-        game.load.spritesheet("screaming", "assets/screaming-emoji.png", 79, 77);
-        game.load.spritesheet("tears", "assets/tears-emoji.png", 81, 81);
-        game.load.spritesheet("tongue", "assets/tongue-emoji.png", 80, 81);
-        game.load.spritesheet("upsidedown", "assets/upsidedown-emoji.png", 80, 81);
-
-
-    }
-    function create(){
-        console.log(game);
-        //background
-        this.background = game.add.tileSprite(0, 0,1400,700,"background");
-        this.background.sendToBack(this);
-
-        //cannon wheel
-        this.cannon_wheel = game.add.sprite(25, 250, "cannon_wheel");
-        this.cannon_wheel.moveUp(this);
-        //this.cannon_wheel.scale.setTo(.3,.3);
-
-        //cannon
-        this.cannon = game.add.sprite(15, 260, "cannon");
-        this.cannon.bringToTop(this);
-        //this.cannon.scale.setTo(.35, .35);
-        this.cannon.anchor.setTo(.05,.6);
-
-        //emojis
-        this.cat = game.add.sprite(510, 40, "cat");
-        this.cat.bringToTop(this);
-        this.heart = game.add.sprite(560, 40, "heart");
-        this.heart.bringToTop(this);
-        this.poop = game.add.sprite(580, 40, "poop");
-        this.poop.bringToTop(this);
-        this.screaming = game.add.sprite(600, 40, "screaming");
-        this.screaming.bringToTop(this);
-        this.tears = game.add.sprite(680, 40, "tears");
-        this.tears.bringToTop(this);
-        this.tongue = game.add.sprite(700, 40, "tongue");
-        this.tongue.bringToTop(this);
-        this.upsidedown = game.add.sprite(200, 40, "upsidedown");
-        this.upsidedown.bringToTop(this);
+            //load emojis
+            game.load.spritesheet("cat", "assets/cat-emoji.png", 300, 300);
+            game.load.spritesheet("heart", "assets/heart-emoji.png", 300, 300);
+            game.load.spritesheet("poop", "assets/poop-emoji.png", 480, 480);
+            game.load.spritesheet("screaming", "assets/screaming-emoji.png", 300, 300);
+            game.load.spritesheet("tears", "assets/tears-emoji.png", 300, 300);
+            game.load.spritesheet("tongue", "assets/tongue-emoji.png", 300, 300);
+            game.load.spritesheet("upsidedown", "assets/upsidedown-emoji.png", 480, 480);
 
 
+        }
+        function create(){
+            console.log(game);
+            //background
+            this.background = game.add.tileSprite(0, 0,480,320,"background");
+            this.background.sendToBack(this);
+
+            //cannon wheel
+            this.cannon_wheel = game.add.sprite(25, 250, "cannon_wheel");
+            this.cannon_wheel.moveUp(this);
+            this.cannon_wheel.scale.setTo(.3,.3);
+
+            //cannon
+           this.cannon = game.add.sprite(15, 260, "cannon");
+           this.cannon.bringToTop(this);
+           this.cannon.scale.setTo(.35, .35);
+           this.cannon.anchor.setTo(.05,.6);
+
+           //emojis
+            this.cat = game.add.sprite(510, 40, "cat");
+            this.cat.bringToTop(this);
+            this.cat.scale.setTo(0.15, 0.15);
+            this.heart = game.add.sprite(560, 40, "heart");
+            this.heart.bringToTop(this);
+            this.heart.scale.setTo(0.15, 0.15);
+            this.poop = game.add.sprite(580, 40, "poop");
+            this.poop.bringToTop(this);
+            this.poop.scale.setTo(0.13, 0.13);
+            this.screaming = game.add.sprite(600, 40, "screaming");
+            this.screaming.bringToTop(this);
+            this.screaming.scale.setTo(0.15, 0.15);
+            this.tears = game.add.sprite(680, 40, "tears");
+            this.tears.bringToTop(this);
+            this.tears.scale.setTo(0.15, 0.15);
+            this.tongue = game.add.sprite(700, 40, "tongue");
+            this.tongue.bringToTop(this);
+            this.tongue.scale.setTo(0.15, 0.15);
+            this.upsidedown = game.add.sprite(200, 40, "upsidedown");
+            this.upsidedown.bringToTop(this);
+            this.upsidedown.scale.setTo(0.15, 0.15);
 
 
-    }
-    function update(){
+        }
+        function update(){
 
 
-    }
+        }
 
-</script>
+    </script>
 
 </body>
 </html>
