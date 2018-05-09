@@ -9,7 +9,7 @@
 <body>
     <script>
         var game = new Phaser.Game(1400, 700, Phaser.AUTO, "",
-            {preload: preload, create: create, update: update
+            {preload: preload, create: create, render: render
             });
 
         var background;
@@ -116,6 +116,7 @@
 
             //create timer
             timer = game.time.create();
+            timer.totalDuration = 180;
             timerEvent = timer.add(Phaser.Timer.MINUTE * 3 + Phaser.Timer.SECOND, this.endTimer, this);
             formatTime();
 
@@ -127,6 +128,19 @@
 
 
         }
+
+        function render(){
+            if (timer.running) {
+                game.debug.text(this.formatTime(Math.round((timerEvent.delay() - timer.ms)/1000)), 700, 200, "#fff")
+            }
+            //else {
+            //game.debug.text("Out of Time", 650, 350, "#fff");
+            // }
+
+
+
+        }
+
         function startGame(){
             startButton.destroy();
             timer.start();
@@ -138,24 +152,11 @@
         }
 
         function formatTime(s) {
-            timer = game.add.text(1100, 610, "3:00", {font: "36px Georgia", fill: "#fff" });
             minutes = "0" + Math.floor(s/60);;
             seconds = "0" + (s - minutes * 60);
             return minutes.substr(-2) + ":" + seconds.substr(-2);
         }
 
-        function render(){
-            if (timer.running) {
-               game.debug.text(this.formatTime(Math.round((timerEvent.delay - timer.ms)/1000)), 700, 200, "#fff");
-               cat.accelerateToXY()
-           }
-            else {
-               game.debug.text("Out of Time", 650, 350, "#fff");
-            }
-
-
-
-        }
 
         // function gameOver() {
             //timeLabel1.text.opacity = 0;
@@ -167,37 +168,6 @@
 
         //}
 
-        function endTimer() {
-            timer.stop();
-        }
-
-        function formatTime(s) {
-            timer = game.add.text(1100, 610, "3:00", {font: "36px Georgia", fill: "#fff" });
-            minutes = "0" + Math.floor(s/60);;
-            seconds = "0" + (s - minutes * 60);
-            return minutes.substr(-2) + ":" + seconds.substr(-2);
-        }
-
-        function render(){
-            if (timer.running) {
-               game.debug.text(this.formatTime(Math.round((timerEvent.delay - timer.ms)/1000)), 700, 200, "#fff");
-               cat.accelerateToXY()
-           }
-            else {
-               game.debug.text("Out of Time", 650, 350, "#fff");
-            }
-
-
-
-        }
-
-         /*function gameOver() {
-        timeLabel.text.opacity = 0;
-        endGame = game.add.text(700, 200, "Game Over", {font: "100px Georgia", fill: "#fff"});
-        endGame.anchor.setTo(0.5);
-        endGame.align = "center";
-        endButton = Phaser.button(this, 700, 300, "Retry", "Retry", restartGame, this)
-        }*/
 
 
 
