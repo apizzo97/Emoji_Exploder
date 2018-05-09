@@ -79,13 +79,13 @@
             cannon = game.add.sprite(25, 550, "cannon");
 
             //emojis
-            cat = game.add.sprite(510, 40, "cat");
-            heart = game.add.sprite(560, 40, "heart");
-            poop = game.add.sprite(580, 40, "poop");
-            scream = game.add.sprite(600, 40, "screaming");
-            tears = game.add.sprite(680, 40, "tears");
-            tongue = game.add.sprite(700, 40, "tongue");
-            upsideDown = game.add.sprite(200, 40, "upsidedown");
+            cat = game.add.sprite(700, 750, "cat");
+            heart = game.add.sprite(700, 750, "heart");
+            poop = game.add.sprite(700, 750, "poop");
+            scream = game.add.sprite(700, 750, "screaming");
+            tears = game.add.sprite(700, 750, "tears");
+            tongue = game.add.sprite(700, 750, "tongue");
+            upsideDown = game.add.sprite(700, 750, "upsideDown");
 
             //add physics
             game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -109,24 +109,30 @@
             timer.stop();
         }
 
-
-        function update(){
-            if (timer.running) {
-                game.debug.text(this.formatTime(Math.round((timerEvent.delay - timer.ms)/1000)), 700, 200, "#fff");
-                cat.accelerateToXY()
-            }
-            else {
-                game.debug.text("Out of Time", 700, 200, "#fff");
-            }
-
-
-
-        }
-
         function formatTime(s) {
+            timer = game.add.text(700, 400, "3:00", {font: "100px Arial", fill: "#fff"});
             minutes = "0" + Math.floor(s/60);
             seconds = "0" + (s - minutes * 60);
             return minutes.substr(-2) + ":" + seconds.substr(-2);
+        }
+
+
+        function update(){
+            if (timer.running) {
+                game.add.text(formatTime(Math.round((timerEvent.delay - timer.ms)/1000)), 700, 200, "#fff");
+                game.physics.arcade.accelerateToXY(cat, -100, 700, 100, 100, 100);
+                game.physics.arcade.accelerateToXY(heart, -200, 400, 100, 100, 100);
+                game.physics.arcade.accelerateToXY(scream, -300, 900, 100, 100, 100);
+                game.physics.arcade.accelerateToXY(tears, -500, 1000, 100, 100, 100);
+                game.physics.arcade.accelerateToXY(tongue, -700, 1300, 100, 100, 100);
+                game.physics.arcade.accelerateToXY(upsideDown, -700, 600, 100, 100, 100);
+            }
+            else {
+                game.add.text("Out of Time", 700, 200, "#fff");
+            }
+
+
+
         }
 
         // function gameOver() {
