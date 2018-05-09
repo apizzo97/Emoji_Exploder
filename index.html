@@ -9,8 +9,7 @@
 <body>
     <script>
         var game = new Phaser.Game(1400, 700, Phaser.AUTO, "",
-            {preload: preload, create: create, update: update
-            });
+            {preload: preload, create: create, update: update});
 
         function preload(){
             console.log(game);
@@ -55,23 +54,31 @@
         var upsideDown;
         var score = 0;
         var textStyle;
+        var timerEvent;
+        var timer;
+        var endGame;
+        var endButton;
+        var minutes;
+        var seconds
 
 
 
 
-        function create(){
+
+
+        function create() {
             console.log(game);
             //background
-            background = game.add.tileSprite(0, 0,1400,700,"background");
+            background = game.add.tileSprite(0, 0, 1400, 700, "background");
 
             //cannon wheel
             cannon_wheel = game.add.sprite(40, 600, "cannon_wheel");
             cannon_wheel.moveUp(cannon_wheel);
 
             //cannon
-           cannon = game.add.sprite(25, 550, "cannon");
+            cannon = game.add.sprite(25, 550, "cannon");
 
-           //emojis
+            //emojis
             cat = game.add.sprite(510, 40, "cat");
             heart = game.add.sprite(560, 40, "heart");
             poop = game.add.sprite(580, 40, "poop");
@@ -81,7 +88,7 @@
             upsideDown = game.add.sprite(200, 40, "upsidedown");
 
             //add physics
-            game.Physics.startSystem(Phaser.Physics.ARCADE);
+            game.physics.startSystem(Phaser.Physics.ARCADE);
             game.physics.enable(cannon, Phaser.Physics.ARCADE);
             game.physics.enable(cat, Phaser.Physics.ARCADE);
             game.physics.enable(heart, Phaser.Physics.ARCADE);
@@ -91,14 +98,46 @@
             game.physics.enable(tongue, Phaser.Physics.ARCADE);
             game.physics.enable(upsideDown, Phaser.Physics.ARCADE);
 
-
-
+            //create timer
+            timer = game.time.create();
+            timerEvent = timer.add(Phaser.Timer.MINUTE + Phaser.Timer.SECOND * 30, this.endTimer, this);
+            timer.start();
 
         }
+
+        function endTimer() {
+            timer.stop();
+        }
+
+
         function update(){
+            if (timer.running) {
+                game.debug.text(this.formatTime(Math.round((timerEvent.delay - timer.ms)/1000)), 700, 200, "#fff");
+                cat.accelerateToXY()
+            }
+            else {
+                game.debug.text("Out of Time", 700, 200, "#fff");
+            }
+
 
 
         }
+
+        function formatTime(s) {
+            minutes = "0" + Math.floor(s/60);
+            seconds = "0" + (s - minutes * 60);
+            return minutes.substr(-2) + ":" + seconds.substr(-2);
+        }
+
+        // function gameOver() {
+            //timeLabel1.text.opacity = 0;
+            // endGame = game.add.text(700, 200, "Game Over", {font: "100px Georgia", fill: "#fff"});
+            // endGame.anchor.setTo(0.5);
+            //  endGame.align = "center";
+            //endButton = Phaser.button(this, 700, 300, "Retry", "Retry", restartGame, this)
+
+
+        //}
 
     </script>
 
