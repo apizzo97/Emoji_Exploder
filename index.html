@@ -34,8 +34,8 @@
         var timer ;
         var endGame;
         var endButton;
-        var minutes;
-        var seconds;
+        var minutes = 3;
+        var seconds = 0;
 
 
         function preload(){
@@ -95,7 +95,7 @@
             scream = game.add.sprite(600, 40, "screaming");
             tears = game.add.sprite(680, 40, "tears");
             tongue = game.add.sprite(700, 40, "tongue");
-            upsideDown = game.add.sprite(200, 40, "upsidedown");
+            upsideDown = game.add.sprite(200, 40, "upsideDown");
 
             //arrows
             arrowLeft = game.add.sprite(400,600,"arrowLeft");
@@ -103,7 +103,7 @@
 
             //score
             textStyle = { font: "36px Georgia", fill: "#000000" };
-            scoreText = game.add.text(800, 610, "Points: 0", textStyle);
+            scoreText = game.add.text(800, 600, "Points: 0", textStyle);
 
             //add physics
             game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -117,9 +117,11 @@
             game.physics.enable(upsideDown, Phaser.Physics.ARCADE);
 
             //create timer
-            timer = game.time.create();
-            timerEvent = timer.add(Phaser.Timer.MINUTE * 3 + Phaser.Timer.SECOND, this.endTimer, this);
-            formatTime();
+            timer = game.time.events.add(Phaser.Timer.MINUTE * 3, Phaser.Timer.SECOND * 0, endTimer, this);
+            //timerEvent = timer.add(Phaser.Timer.MINUTE * 3 + Phaser.Timer.SECOND, this.endTimer, this);
+            //timer.start();
+           // formatTime();
+
 
             //start button
             startButton = game.add.button(game.world.width*.5, game.world.height*.5, "startButton", startGame, this, 1, 0, 2);
@@ -129,43 +131,50 @@
 
 
         }
-        function startGame(){
-            startButton.destroy();
-            timer.start();
-            playing = true;
+
+        function update(){
+
         }
 
+
+        function render(){
+            //if (timer.running) {
+              // game.debug.text(this.formatTime(Math.round((timerEvent.delay - timer.ms)/1000)), 1100, 610, "#fff");
+               game.debug.text("Time left: " + game.time.events.duration, 1100, 610)
+               // cat.accelerateToXY()
+           //}
+            //else {
+              // game.debug.text("Out of Time", 650, 350, "#fff");
+            //}
+
+
+
+        }
         function endTimer() {
             timer.stop();
         }
 
-        function formatTime(s) {
+  /*      function formatTime(s) {
             timer = game.add.text(1100, 610, "3:00", {font: "36px Georgia", fill: "#fff" });
-            minutes = "0" + Math.floor(s/60);;
+            minutes = "0" + Math.floor(s/60);
             seconds = "0" + (s - minutes * 60);
             return minutes.substr(-2) + ":" + seconds.substr(-2);
-        }
-
-        function render(){
-            if (timer.running) {
-               game.debug.text(this.formatTime(Math.round((timerEvent.delay - timer.ms)/1000)), 700, 200, "#fff");
-               cat.accelerateToXY()
-           }
-            else {
-               game.debug.text("Out of Time", 650, 350, "#fff");
-            }
-
-
-
-        }
-
-         /*function gameOver() {
-        timeLabel.text.opacity = 0;
-        endGame = game.add.text(700, 200, "Game Over", {font: "100px Georgia", fill: "#fff"});
-        endGame.anchor.setTo(0.5);
-        endGame.align = "center";
-        endButton = Phaser.button(this, 700, 300, "Retry", "Retry", restartGame, this)
         }*/
+        // function startGame(){
+        //     startButton.destroy();
+        //     //timer.start();
+        //     playing = true;
+        // }
+
+
+
+        /*function gameOver() {
+       timeLabel.text.opacity = 0;
+       endGame = game.add.text(700, 200, "Game Over", {font: "100px Georgia", fill: "#fff"});
+       endGame.anchor.setTo(0.5);
+       endGame.align = "center";
+       endButton = Phaser.button(this, 700, 300, "Retry", "Retry", restartGame, this)
+       }*/
 
 
 
