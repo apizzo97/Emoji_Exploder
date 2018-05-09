@@ -9,7 +9,7 @@
 <body>
     <script>
         var game = new Phaser.Game(1400, 700, Phaser.AUTO, "",
-            {preload: preload, create: create, render: render,
+            {preload: preload, create: create, update: update
             });
 
         var background;
@@ -31,7 +31,7 @@
         var playing = false;
         var startButton;
         var timerEvent;
-        var timer ;
+        var timer;
         var endGame;
         var endButton;
         var minutes;
@@ -68,25 +68,23 @@
 
             //start button
             game.load.spritesheet("startButton", "assets/button.png");
-
-
         }
 
 
 
 
 
-        function create() {
+        function create(){
             console.log(game);
             //background
-            background = game.add.tileSprite(0, 0, 1400, 700, "background");
+            background = game.add.tileSprite(0, 0,1400,700,"background");
 
             //cannon wheel
             cannon_wheel = game.add.sprite(40, 600, "cannon_wheel");
             cannon_wheel.moveUp(cannon_wheel);
 
             //cannon
-            cannon = game.add.sprite(25, 550, "cannon");
+           cannon = game.add.sprite(25, 550, "cannon");
 
            //emojis
             cat = game.add.sprite(510, 40, "cat");
@@ -103,7 +101,7 @@
 
             //score
             textStyle = { font: "36px Georgia", fill: "#000000" };
-            scoreText = game.add.text(800, 610, "Points: 0", textStyle);
+            scoreText = game.add.text(800, 620, "Points: 0", textStyle);
 
             //add physics
             game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -140,25 +138,19 @@
         }
 
         function formatTime(s) {
-            timer = game.add.text(700, 400, "3:00", {font: "100px Arial", fill: "#fff"});
-            minutes = "0" + Math.floor(s/60);
+            timer = game.add.text(1100, 610, "3:00", {font: "36px Georgia", fill: "#fff" });
+            minutes = "0" + Math.floor(s/60);;
             seconds = "0" + (s - minutes * 60);
             return minutes.substr(-2) + ":" + seconds.substr(-2);
         }
 
-
-        function update(){
+        function render(){
             if (timer.running) {
-                game.add.text(formatTime(Math.round((timerEvent.delay - timer.ms)/1000)), 700, 200, "#fff");
-                game.physics.arcade.accelerateToXY(cat, -100, 700, 100, 100, 100);
-                game.physics.arcade.accelerateToXY(heart, -200, 400, 100, 100, 100);
-                game.physics.arcade.accelerateToXY(scream, -300, 900, 100, 100, 100);
-                game.physics.arcade.accelerateToXY(tears, -500, 1000, 100, 100, 100);
-                game.physics.arcade.accelerateToXY(tongue, -700, 1300, 100, 100, 100);
-                game.physics.arcade.accelerateToXY(upsideDown, -700, 600, 100, 100, 100);
-            }
+               game.debug.text(this.formatTime(Math.round((timerEvent.delay - timer.ms)/1000)), 700, 200, "#fff");
+               cat.accelerateToXY()
+           }
             else {
-                game.add.text("Out of Time", 700, 200, "#fff");
+               game.debug.text("Out of Time", 650, 350, "#fff");
             }
 
 
