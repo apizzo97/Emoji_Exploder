@@ -12,6 +12,32 @@
             {preload: preload, create: create, update: update
             });
 
+        var background;
+        var cannon_wheel;
+        var cannon;
+        var cat;
+        var heart;
+        var poop;
+        var scream;
+        var tears;
+        var tongue;
+        var upsideDown;
+        var arrowRight;
+        var arrowLeft;
+        var arrowText;
+        var scoreText;
+        var score = 0;
+        var textStyle;
+        var playing = false;
+        var startButton;
+        var timerEvent;
+        var timer;
+        var endGame;
+        var endButton;
+        var minutes;
+        var seconds;
+
+
         function preload(){
             console.log(game);
             //make responsive
@@ -40,27 +66,12 @@
             game.load.image("arrowRight", "assets/triangle-right.png");
             game.load.image("arrowLeft", "assets/triangle-left.png");
 
+            //start button
+            game.load.spritesheet("startButton", "assets/button.png");
+
 
         }
 
-        var background;
-        var cannon_wheel;
-        var cannon;
-        var cat;
-        var heart;
-        var poop;
-        var scream;
-        var tears;
-        var tongue;
-        var upsideDown;
-        var arrowRight;
-        var arrowLeft;
-        var arrowText;
-        var scoreText;
-        var score = 0;
-        var textStyle;
-        var playing = false;
-        var startButton;
 
 
 
@@ -95,7 +106,7 @@
             scoreText = game.add.text(800, 620, "Points: 0", textStyle);
 
             //add physics
-            game.Physics.startSystem(Phaser.Physics.ARCADE);
+            game.physics.startSystem(Phaser.Physics.ARCADE);
             game.physics.enable(cannon, Phaser.Physics.ARCADE);
             game.physics.enable(cat, Phaser.Physics.ARCADE);
             game.physics.enable(heart, Phaser.Physics.ARCADE);
@@ -105,13 +116,51 @@
             game.physics.enable(tongue, Phaser.Physics.ARCADE);
             game.physics.enable(upsideDown, Phaser.Physics.ARCADE);
 
+            //create timer
+            timer = game.time.create();
+            timerEvent = timer.add(Phaser.Timer.MINUTE + Phaser.Timer.SECOND * 30, this.endTimer, this);
+
+            //start button
+            startButton = game.add.button(game.world.width*.5, game.world.height*.5, "startButton", startGame, this, 1, 0, 2);
+            startButton.anchor.set(.5);
+
 
 
 
         }
+
+        //function endTimer() {
+            //timer.stop();
+        //}
         function update(){
+           // if (timer.running) {
+              //  game.debug.text(this.formatTime(Math.round((timerEvent.delay - timer.ms)/1000)), 700, 200, "#fff");
+              //  cat.accelerateToXY()
+           // }
+           // else {
+             //   game.debug.text("Out of Time", 700, 200, "#fff");
+            //}
 
 
+
+        }
+       /* function formatTime(s) {
+            minutes = "0" + Math.floor(s/60);
+            seconds = "0" + (s - minutes * 60);
+            return minutes.substr(-2) + ":" + seconds.substr(-2);
+        }*/
+        // function gameOver() {
+        //timeLabel1.text.opacity = 0;
+        // endGame = game.add.text(700, 200, "Game Over", {font: "100px Georgia", fill: "#fff"});
+        // endGame.anchor.setTo(0.5);
+        //  endGame.align = "center";
+        //endButton = Phaser.button(this, 700, 300, "Retry", "Retry", restartGame, this)
+        //}
+
+        function startGame(){
+            startButton.destroy();
+            //timer.start();
+            playing = true;
         }
 
     </script>
