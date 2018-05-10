@@ -9,7 +9,7 @@
 <body>
     <script>
         var game = new Phaser.Game(1400, 700, Phaser.AUTO, "",
-            {preload: preload, create: create, render: render,
+            {preload: preload, create: create, update: update
             });
 
         var background;
@@ -30,12 +30,17 @@
         var textStyle;
         var playing = false;
         var startButton;
-        var timerEvent;
-        var timer ;
         var endGame;
         var endButton;
-        var minutes = 3;
-        var seconds = 0;
+        var lives;
+        var lifeCounter = 3;
+        var music;
+        var cannons;
+        var cannonTime = 0;
+        var fireButton;
+        var cursors;
+        var cannon;
+
 
 
         function preload(){
@@ -69,12 +74,11 @@
             //start button
             game.load.spritesheet("startButton", "assets/button.png");
 
+            //game music
+            game.load.audio("gameMusic", "assets/GameMusic.mp3");
+
 
         }
-
-
-
-
 
         function create(){
             console.log(game);
@@ -82,20 +86,21 @@
             background = game.add.tileSprite(0, 0,1400,700,"background");
 
             //cannon wheel
-            cannon_wheel = game.add.sprite(40, 600, "cannon_wheel");
+            cannon_wheel = game.add.sprite(50, 570, "cannon_wheel");
             cannon_wheel.moveUp(cannon_wheel);
 
             //cannon
-           cannon = game.add.sprite(25, 550, "cannon");
+           cannon = game.add.sprite(110, 550, "cannon");
+           cannon.anchor.setTo(0.5);
 
            //emojis
-            cat = game.add.sprite(510, 40, "cat");
-            heart = game.add.sprite(560, 40, "heart");
-            poop = game.add.sprite(580, 40, "poop");
-            scream = game.add.sprite(600, 40, "screaming");
-            tears = game.add.sprite(680, 40, "tears");
-            tongue = game.add.sprite(700, 40, "tongue");
-            upsideDown = game.add.sprite(200, 40, "upsidedown");
+            cat = game.add.sprite(1300, 20, "cat");
+            heart = game.add.sprite(1300, 95, "heart");
+            poop = game.add.sprite(1300, 180, "poop");
+            scream = game.add.sprite(1300, 255, "screaming");
+            tears = game.add.sprite(1300, 330, "tears");
+            tongue = game.add.sprite(1300, 405, "tongue");
+            upsideDown = game.add.sprite(1300, 480, "upsideDown");
 
             //arrows
             arrowLeft = game.add.sprite(400,600,"arrowLeft");
@@ -104,6 +109,9 @@
             //score
             textStyle = { font: "36px Georgia", fill: "#000000" };
             scoreText = game.add.text(800, 610, "Points: 0", textStyle);
+
+            //lives
+            lives = game.add.text(1200, 610, "Lives: " + " " + lifeCounter, textStyle );
 
             //add physics
             game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -116,67 +124,84 @@
             game.physics.enable(tongue, Phaser.Physics.ARCADE);
             game.physics.enable(upsideDown, Phaser.Physics.ARCADE);
 
-            //create timer
-            timer = game.time.events.add(Phaser.Timer.MINUTE * 3, Phaser.Timer.SECOND * 0, endTimer, this);
-            //timerEvent = timer.add(Phaser.Timer.MINUTE * 3 + Phaser.Timer.SECOND, this.endTimer, this);
-            //timer.start();
-           // formatTime();
-
-
             //start button
             startButton = game.add.button(game.world.width*.5, game.world.height*.5, "startButton", startGame, this, 1, 0, 2);
             startButton.anchor.set(.5);
 
+            //music
+            music = game.add.audio("gameMusic");
+
+            //cursor keys
+            cursors = game.input.keyboard.createCursorKeys();
+
+            //setup cannons
+            cannons = game.add.group();
+            game.physics.enable(cannons, Phaser.Physics.ARCADE);
+            cannons.createMultiple(30, "cannon");
+            cannons.setAll("anchor.x", 0.5);
+            cannons.setAll("anchor.y", 1);
+            cannons.setAll("outOfBoundsKill", true);
+            cannons.setAll("checkWorldBounds", true);
+
+            fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
 
-
-        }
-
-        function update(){
-
-        }
-
-
-        function render(){
-            //if (timer.running) {
-              // game.debug.text(this.formatTime(Math.round((timerEvent.delay - timer.ms)/1000)), 1100, 610, "#fff");
-               game.debug.text("Time left: " + game.time.events.duration, 1100, 610)
-               // cat.accelerateToXY()
-           //}
-            //else {
-              // game.debug.text("Out of Time", 650, 350, "#fff");
-            //}
-
-
-
-        }
-        function endTimer() {
-            timer.stop();
-        }
-
-  /*      function formatTime(s) {
-            timer = game.add.text(1100, 610, "3:00", {font: "36px Georgia", fill: "#fff" });
-            minutes = "0" + Math.floor(s/60);
-            seconds = "0" + (s - minutes * 60);
-            return minutes.substr(-2) + ":" + seconds.substr(-2);
-        }*/
-        // function startGame(){
-        //     startButton.destroy();
-        //     //timer.start();
-        //     playing = true;
-        // }
 
 
 
         }
 
-         /*function gameOver() {
-        timeLabel.text.opacity = 0;
-        endGame = game.add.text(700, 200, "Game Over", {font: "100px Georgia", fill: "#fff"});
-        endGame.anchor.setTo(0.5);
-        endGame.align = "center";
-        endButton = Phaser.button(this, 700, 300, "Retry", "Retry", restartGame, this)
-        }*/
+        function update() {
+            if (lifeCounter > 0) {
+                game.physics.arcade.accelerateToXY(cat, -70, 20, 70, 80, 80);
+                if (cat.x === -70) {
+                    cat.destroy();
+                }
+                //game.physics.arcade.accelerateToXY(heart, 0, 600, 50);
+                //game.physics.arcade.accelerateToXY(poop, 0, 600, 40);
+                //game.physics.arcade.accelerateToXY(scream, 0, 600, 30);
+                //game.physics.arcade.accelerateToXY(tears, 0, 600, 20);
+                //game.physics.arcade.accelerateToXY(tongue, 0, 600, 10);
+                //game.physics.arcade.accelerateToXY(upsideDown, 0, 600, 5);
+
+                //rotates cannon
+                cannon.rotation = game.physics.arcade.angleToPointer(cannon);
+
+                //if (fireButton.isDown()) {
+                    //fireBullet();
+               // }
+            }
+        }
+
+        function startGame(){
+             startButton.destroy();
+             music.play("gameMusic");
+         }
+
+        /*
+         function fireBullet() {
+            if (game.time.now > cannonTime) {
+                cannon = cannons.getFirstExists(false);
+                if (cannon) {
+                    cannon.reset(cannon.x, cannon.y);
+                    cannon.body.velocity.y = -400;
+                    cannonTime = game.time.now + 200;
+                }
+
+            }
+         }
+
+
+        // function gameOver() {
+            //timeLabel1.text.opacity = 0;
+            // endGame = game.add.text(700, 200, "Game Over", {font: "100px Georgia", fill: "#fff"});
+            // endGame.anchor.setTo(0.5);
+            //  endGame.align = "center";
+            //endButton = Phaser.button(this, 700, 300, "Retry", "Retry", restartGame, this)
+
+
+        //}
+        */
 
 
 
