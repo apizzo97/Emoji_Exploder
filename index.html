@@ -42,6 +42,7 @@
         var cursors;
         var cannonBall;
         var weapon;
+        var emojis;
 
 
 
@@ -88,6 +89,7 @@
             console.log(game);
             //background
             background = game.add.tileSprite(0, 0,1400,700,"background");
+            background.sendToBack(this);
 
             //cannon wheel
             cannon_wheel = game.add.sprite(50, 570, "cannon_wheel");
@@ -177,7 +179,7 @@
 
 
                 //rotates cannon
-            cannon.rotation = game.physics.arcade.angleToPointer(cannon);
+           cannon.rotation = game.physics.arcade.angleToPointer(cannon);
         }
 
         //function destroyImage(image) {
@@ -206,7 +208,7 @@
              startButton.destroy();
              playing = true;
              music.play("music");
-            cannon.rotation = game.physics.arcade.angleToPointer(cannon);
+            //cannon.rotation = game.physics.arcade.angleToPointer(cannon);
 
          }
 
