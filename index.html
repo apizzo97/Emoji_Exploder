@@ -36,10 +36,10 @@
         var lifeCounter = 3;
         var music;
         var cannonBalls;
-        var cannonTime = 0;
         var fireButton;
         var cursors;
         var cannonBall;
+        var weapon;
 
 
 
@@ -127,27 +127,27 @@
               game.physics.enable(tongue, Phaser.Physics.ARCADE);
               game.physics.enable(upsideDown, Phaser.Physics.ARCADE);
               game.physics.enable(cannon, Phaser.Physics.ARCADE);
+              game.physics.enable(cannonBalls, Phaser.Physics.ARCADE);
 
             //start button
-            //startButton = game.add.button(game.world.width*.5, game.world.height*.5, "startButton", startGame, this, 1, 0, 2);
-           // startButton.anchor.set(.5);
+            startButton = game.add.button(game.world.width*.5, game.world.height*.5, "startButton", startGame, this, 1, 0, 2);
+            startButton.anchor.set(.5);
 
             //music
             music = game.add.audio("gameMusic");
 
             //cursor keys
-           // cursors = game.input.keyboard.createCursorKeys();
+            cursors = game.input.keyboard.createCursorKeys();
 
-            //setup cannonBalls
-            //cannonBalls = game.add.group("cannonBall");
-           // game.physics.enable(cannonBalls, Phaser.Physics.ARCADE);
-           // cannonBalls.createMultiple(30, "cannonBall");
-          //  cannonBalls.setAll("anchor.x", 0.5);
-           // cannonBalls.setAll("anchor.y", 1);
-           // cannonBalls.setAll("outOfBoundsKill", true);
-          //  cannonBalls.setAll("checkWorldBounds", true);
+            //setup cannon weapon
+              weapon = game.add.Weapon(1, "cannonBall");
+              weapon.bulletKillType = Phaser.weapon.KILL_WORLD_BOUNDS;
+              weapon.bulletSpeed = 400;
+              weapon.trackRotation(cannon.rotation);
 
-            //fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+
+            //fire button
+            fireButton = game.input.addKey(Phaser.keyboard.SPACEBAR);
 
 
 
@@ -158,10 +158,10 @@
         function update() {
             //if (lifeCounter > 0) {
                 //rotates cannonBall
-                //cannon.rotation = game.Physics.arcade.angleToPointer(cannon);
-                //if (fireButton.isDown()) {
-                    //fireBullet();
-                //}
+                cannon.rotation = game.physics.arcade.angleToPointer(cannon);
+                if (fireButton.isDown) {
+                   //weapon.fire();
+               }
            // }
         }
 
@@ -189,26 +189,10 @@
 
         function startGame(){
              startButton.destroy();
-             playing = true;
              //gameLoop();
              //music.play("gameMusic");
 
          }
-
-
-
-
-         //function fireBullet() {
-            // if (game.time.now > cannonTime) {
-                 //cannonBall = cannonBalls.getFirstExists(false);
-                 //if (cannonBall) {
-                    // cannonBall.reset(cannonBall.x, cannonBall.y);
-                    // cannonBall.body.velocity.y = -400;
-                     //cannonTime = game.time.now + 200;
-                // }
-
-            // }
-       //  }
 
 
         // function gameOver() {
