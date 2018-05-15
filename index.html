@@ -55,7 +55,7 @@
             game.load.image("background", "assets/background.png" );
 
             //load cannon, cannonBall and cannonBall wheel
-            game.load.image("cannon_wheel", "assets/cannonBall-wheel.png");
+            game.load.image("cannon_wheel", "assets/cannon-wheel.png");
             game.load.image("cannon", "assets/cannon.png");
             game.load.image("cannonBall", "assets/cannonBall.png");
 
@@ -125,27 +125,28 @@
             game.physics.enable(tears, Phaser.Physics.ARCADE);
             game.physics.enable(tongue, Phaser.Physics.ARCADE);
             game.physics.enable(upsideDown, Phaser.Physics.ARCADE);
+            game.physics.enable(cannon, Phaser.Physics.ARCADE);
 
             //start button
             startButton = game.add.button(game.world.width*.5, game.world.height*.5, "startButton", startGame, this, 1, 0, 2);
             startButton.anchor.set(.5);
 
             //music
-            music = game.add.audio("gameMusic");
+            //music = game.add.audio("gameMusic");
 
             //cursor keys
             cursors = game.input.keyboard.createCursorKeys();
 
             //setup cannonBalls
-            cannonBalls = game.add.group("cannonBall");
-            game.physics.enable(cannonBalls, Phaser.Physics.ARCADE);
-            cannonBalls.createMultiple(30, "cannonBall");
-            cannonBalls.setAll("anchor.x", 0.5);
-            cannonBalls.setAll("anchor.y", 1);
-            cannonBalls.setAll("outOfBoundsKill", true);
-            cannonBalls.setAll("checkWorldBounds", true);
+            //cannonBalls = game.add.group("cannonBall");
+           // game.physics.enable(cannonBalls, Phaser.Physics.ARCADE);
+           // cannonBalls.createMultiple(30, "cannonBall");
+          //  cannonBalls.setAll("anchor.x", 0.5);
+           // cannonBalls.setAll("anchor.y", 1);
+           // cannonBalls.setAll("outOfBoundsKill", true);
+          //  cannonBalls.setAll("checkWorldBounds", true);
 
-            fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+            //fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
 
 
@@ -156,7 +157,7 @@
         function update() {
             if (lifeCounter > 0) {
                 //rotates cannonBall
-                cannonBall.rotation = game.physics.arcade.angleToPointer(cannonBall);
+                //cannon.rotation = game.Physics.arcade.angleToPointer(cannon);
                 //if (fireButton.isDown()) {
                     //fireBullet();
                 //}
