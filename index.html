@@ -73,7 +73,7 @@
             game.load.image("arrowLeft", "assets/triangle-left.png");
 
             //start button
-            game.load.spritesheet("startButton", "assets/button.png");
+            game.load.image("startButton", "assets/button.png");
 
             //game music
 
@@ -132,7 +132,7 @@
             startButton.anchor.set(.5);
 
             //music
-            //music = game.add.audio("gameMusic");
+            music = game.add.audio("gameMusic");
 
             //cursor keys
             cursors = game.input.keyboard.createCursorKeys();
@@ -188,8 +188,9 @@
 
         function startGame(){
              startButton.destroy();
-             //gameLoop();
-             //music.play("gameMusic");
+             playing = true;
+             gameLoop();
+             music.play("gameMusic");
 
          }
 
