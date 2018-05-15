@@ -32,7 +32,8 @@
         var startButton;
         var endGame;
         var endButton;
-        var lives;
+        var livesText;
+        var lostLivesText;
         var lifeCounter = 3;
         var music;
         var cannonBalls;
@@ -76,6 +77,7 @@
             game.load.image("startButton", "assets/button.png");
 
             //game music
+            game.load.audio("music", "GameMusic.mpg");
 
 
 
@@ -94,7 +96,6 @@
            cannon = game.add.sprite(110, 550, "cannon");
            cannon.anchor.setTo(0.5);
 
-
            //emojis
             cat = game.add.sprite(1300, 20, "cat");
             heart = game.add.sprite(1300, 95, "heart");
@@ -103,7 +104,16 @@
             tears = game.add.sprite(1300, 330, "tears");
             tongue = game.add.sprite(1300, 405, "tongue");
             upsideDown = game.add.sprite(1300, 480, "upsideDown");
-            cannonBall = game.add.sprite(1300, 480, "cannonBall")
+            emojis = game.add.group();
+            emojis.add(cat);
+            emojis.add(heart);
+            emojis.add(scream);
+            emojis.add(tears);
+            emojis.add(tongue);
+            emojis.add(upsideDown);
+
+            //cannonBall
+            cannonBall = game.add.sprite(1300, 180, "cannonBall");
 
             //arrows
             arrowLeft = game.add.sprite(400,600,"arrowLeft");
@@ -114,7 +124,11 @@
             scoreText = game.add.text(800, 610, "Points: 0", textStyle);
 
             //lives
-            lives = game.add.text(1200, 610, "Lives: " + " " + lifeCounter, textStyle );
+            livesText = game.add.text(1200, 610, "Lives: " + lifeCounter, textStyle);
+            livesText.anchor.set(1,0);
+            lostLivesText = game.add.text(game.world.width*.5, game.world.height*.5, "You lost a life. Tap to continue", textStyle);
+            lostLivesText.anchor.set(.5);
+            lostLivesText.visible = false;
 
             //add physics
               game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -129,14 +143,14 @@
               game.physics.enable(cannon, Phaser.Physics.ARCADE);
 
             //start button
-            //startButton = game.add.button(game.world.width*.5, game.world.height*.5, "startButton", startGame, this, 1, 0, 2);
-           // startButton.anchor.set(.5);
+            startButton = game.add.button(game.world.width*.5, game.world.height*.5, "startButton", startGame, this, 1, 0, 2);
+           startButton.anchor.set(.5);
 
             //music
-            music = game.add.audio("gameMusic");
+            music = game.add.audio("music");
 
             //cursor keys
-           // cursors = game.input.keyboard.createCursorKeys();
+           //cursors = game.input.keyboard.createCursorKeys();
 
             //setup cannonBalls
             //cannonBalls = game.add.group("cannonBall");
@@ -156,13 +170,12 @@
         }
 
         function update() {
-            //if (lifeCounter > 0) {
-                //rotates cannonBall
-                //cannon.rotation = game.Physics.arcade.angleToPointer(cannon);
-                //if (fireButton.isDown()) {
-                    //fireBullet();
-                //}
-           // }
+            game.physics.arcade.collide(cannonBall, emojis, ballHitsEmojis);
+            game.physics.arcade.collide(cannonBall, poop, ballHitsPoop);
+
+
+                //rotates cannon
+            cannon.rotation = game.physics.arcade.angleToPointer(cannon);
         }
 
         //function destroyImage(image) {
@@ -190,25 +203,54 @@
         function startGame(){
              startButton.destroy();
              playing = true;
-             //gameLoop();
-             //music.play("gameMusic");
+             music.play("music");
+            cannon.rotation = game.physics.arcade.angleToPointer(cannon);
 
+         }
+
+         function ballHitsEmojis(cannonBall, emojis){
+            var killTween = game.add.tween(emojis.scale);
+            killTween.to({x: 0, y: 0}, 200, Phaser.Easing.Linear.None);
+            killTween.onComplete.addOnce(function(){
+                emojis.kill();
+            }, this);
+            killTween.start();
+            score += 10;
+            scoreText.setText("Points: " + score);
+         }
+
+         function ballHitsPoop(){
+            lifeCounter--;
+            if(lifeCounter) {
+                livesText.setText("Lives: " + lifeCounter);
+                lostLivesText.visible = true;
+                cannonBall.reset();
+                cannon.reset();
+                game.input.onDown.addOnce(function () {
+                    lostLivesText.visible = false;
+                }, this);
+            }
+            else{
+                alert("Game over, you lost!");
+                location.reload();
+            }
          }
 
 
 
 
-         //function fireBullet() {
-            // if (game.time.now > cannonTime) {
-                 //cannonBall = cannonBalls.getFirstExists(false);
-                 //if (cannonBall) {
-                    // cannonBall.reset(cannonBall.x, cannonBall.y);
-                    // cannonBall.body.velocity.y = -400;
-                     //cannonTime = game.time.now + 200;
-                // }
+   /*      function fireBullet() {
+                    if (game.time.now > cannonTime) {
+             }
+                 cannonBall = cannonBalls.getFirstExists(false);
+                 if (cannonBall) {
+                    cannonBall.reset(cannonBall.x, cannonBall.y);
+                    cannonBall.body.velocity.y = -400;
+                     cannonTime = game.time.now + 200;
+                 }
 
-            // }
-       //  }
+             }*/
+
 
 
         // function gameOver() {
