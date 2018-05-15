@@ -35,11 +35,11 @@
         var lives;
         var lifeCounter = 3;
         var music;
-        var cannons;
+        var cannonBalls;
         var cannonTime = 0;
         var fireButton;
         var cursors;
-        var cannon;
+        var cannonBall;
 
 
 
@@ -54,9 +54,10 @@
             game.stage.backgroundColor = ("#FFFFFF");
             game.load.image("background", "assets/background.png" );
 
-            //load cannon and cannon wheel
-            game.load.image("cannon_wheel", "assets/cannon-wheel.png");
+            //load cannon, cannonBall and cannonBall wheel
+            game.load.image("cannon_wheel", "assets/cannonBall-wheel.png");
             game.load.image("cannon", "assets/cannon.png");
+            game.load.image("cannonBall", "assets/cannonBall.png");
 
             //load emojis
             game.load.image("cat", "assets/cat-emoji.png");
@@ -75,7 +76,7 @@
             game.load.spritesheet("startButton", "assets/button.png");
 
             //game music
-            
+
 
 
         }
@@ -92,6 +93,7 @@
             //cannon
            cannon = game.add.sprite(110, 550, "cannon");
            cannon.anchor.setTo(0.5);
+
 
            //emojis
             cat = game.add.sprite(1300, 20, "cat");
@@ -115,7 +117,7 @@
 
             //add physics
             game.physics.startSystem(Phaser.Physics.ARCADE);
-            game.physics.enable(cannon, Phaser.Physics.ARCADE);
+            game.physics.enable(cannonBall, Phaser.Physics.ARCADE);
             game.physics.enable(cat, Phaser.Physics.ARCADE);
             game.physics.enable(heart, Phaser.Physics.ARCADE);
             game.physics.enable(poop, Phaser.Physics.ARCADE);
@@ -134,14 +136,14 @@
             //cursor keys
             cursors = game.input.keyboard.createCursorKeys();
 
-            //setup cannons
-            cannons = game.add.group();
-            game.physics.enable(cannons, Phaser.Physics.ARCADE);
-            cannons.createMultiple(30, "cannon");
-            cannons.setAll("anchor.x", 0.5);
-            cannons.setAll("anchor.y", 1);
-            cannons.setAll("outOfBoundsKill", true);
-            cannons.setAll("checkWorldBounds", true);
+            //setup cannonBalls
+            cannonBalls = game.add.group("cannonBall");
+            game.physics.enable(cannonBalls, Phaser.Physics.ARCADE);
+            cannonBalls.createMultiple(30, "cannonBall");
+            cannonBalls.setAll("anchor.x", 0.5);
+            cannonBalls.setAll("anchor.y", 1);
+            cannonBalls.setAll("outOfBoundsKill", true);
+            cannonBalls.setAll("checkWorldBounds", true);
 
             fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
@@ -153,43 +155,57 @@
 
         function update() {
             if (lifeCounter > 0) {
-                game.physics.arcade.accelerateToXY(cat, -70, 20, 70, 80, 80);
-                if (cat.x === -70) {
-                    cat.destroy();
-                }
-                //game.physics.arcade.accelerateToXY(heart, 0, 600, 50);
-                //game.physics.arcade.accelerateToXY(poop, 0, 600, 40);
-                //game.physics.arcade.accelerateToXY(scream, 0, 600, 30);
-                //game.physics.arcade.accelerateToXY(tears, 0, 600, 20);
-                //game.physics.arcade.accelerateToXY(tongue, 0, 600, 10);
-                //game.physics.arcade.accelerateToXY(upsideDown, 0, 600, 5);
-
-                //rotates cannon
-                cannon.rotation = game.physics.arcade.angleToPointer(cannon);
-
+                //rotates cannonBall
+                cannonBall.rotation = game.physics.arcade.angleToPointer(cannonBall);
                 //if (fireButton.isDown()) {
                     //fireBullet();
-               // }
-            }
+                //}
+           // }
+        }
+
+        //function destroyImage(image) {
+            //if (image.x <= -70) {
+               // image.destroy();
+            //}
+
+        //function gameLoop() {
+            //game.physics.arcade.accelerateToXY(cat, -90, 20, 70, 80, 80);
+            //destroyImage(cat);
+            //game.physics.arcade.accelerateToXY(heart, -90, 95, 70, 80, 80);
+            // destroyImage(heart);
+            // game.physics.arcade.accelerateToXY(poop, -90, 180, 70, 80, 80);
+            //  destroyImage(poop);
+            //  game.physics.arcade.accelerateToXY(scream, -90, 255, 70, 80, 80);
+            //  destroyImage(scream);
+            //   game.physics.arcade.accelerateToXY(tears, -90, 330, 70, 80, 80);
+            //  destroyImage(tears);
+            //   game.physics.arcade.accelerateToXY(tongue, -90, 405, 70, 80, 80);
+            //   destroyImage(tongue);
+            //    game.physics.arcade.accelerateToXY(upsideDown,-90, 480, 70, 80, 80);
+            //    destroyImage(upsideDown);
         }
 
         function startGame(){
              startButton.destroy();
-             music.play("gameMusic");
+             //gameLoop();
+             //music.play("gameMusic");
+
          }
 
-        /*
-         function fireBullet() {
-            if (game.time.now > cannonTime) {
-                cannon = cannons.getFirstExists(false);
-                if (cannon) {
-                    cannon.reset(cannon.x, cannon.y);
-                    cannon.body.velocity.y = -400;
-                    cannonTime = game.time.now + 200;
-                }
 
-            }
-         }
+
+
+         //function fireBullet() {
+            // if (game.time.now > cannonTime) {
+                 //cannonBall = cannonBalls.getFirstExists(false);
+                 //if (cannonBall) {
+                    // cannonBall.reset(cannonBall.x, cannonBall.y);
+                    // cannonBall.body.velocity.y = -400;
+                     //cannonTime = game.time.now + 200;
+                // }
+
+            // }
+       //  }
 
 
         // function gameOver() {
@@ -201,7 +217,6 @@
 
 
         //}
-        */
 
 
 
