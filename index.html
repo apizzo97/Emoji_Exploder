@@ -42,6 +42,7 @@
         var cursors;
         var cannonBall;
         var weapon;
+        var emojis;
 
 
 
@@ -78,7 +79,7 @@
             game.load.image("startButton", "assets/button.png");
 
             //game music
-            game.load.audio("music", "GameMusic.mpg");
+            //game.load.audio("music", "GameMusic.mpg");
 
 
 
@@ -94,8 +95,8 @@
             cannon_wheel.moveUp(cannon_wheel);
 
             //cannon
-           cannon = game.add.sprite(110, 550, "cannon");
-           cannon.anchor.setTo(0.5);
+            cannon = game.add.sprite(110, 550, "cannon");
+            cannon.anchor.setTo(0.5);
 
 
            //emojis
@@ -133,37 +134,39 @@
             lostLivesText.visible = false;
 
             //add physics
-              game.physics.startSystem(Phaser.Physics.ARCADE);
-              game.physics.enable(cannonBall, Phaser.Physics.ARCADE);
-              game.physics.enable(cat, Phaser.Physics.ARCADE);
-              game.physics.enable(heart, Phaser.Physics.ARCADE);
-              game.physics.enable(poop, Phaser.Physics.ARCADE);
-              game.physics.enable(scream, Phaser.Physics.ARCADE);
-              game.physics.enable(tears, Phaser.Physics.ARCADE);
-              game.physics.enable(tongue, Phaser.Physics.ARCADE);
-              game.physics.enable(upsideDown, Phaser.Physics.ARCADE);
-              game.physics.enable(cannon, Phaser.Physics.ARCADE);
-              game.physics.enable(cannonBalls, Phaser.Physics.ARCADE);
+            game.physics.startSystem(Phaser.Physics.ARCADE);
+            game.physics.enable(cannonBall, Phaser.Physics.ARCADE);
+            game.physics.enable(cat, Phaser.Physics.ARCADE);
+            game.physics.enable(heart, Phaser.Physics.ARCADE);
+            game.physics.enable(poop, Phaser.Physics.ARCADE);
+            game.physics.enable(scream, Phaser.Physics.ARCADE);
+            game.physics.enable(tears, Phaser.Physics.ARCADE);
+            game.physics.enable(tongue, Phaser.Physics.ARCADE);
+            game.physics.enable(upsideDown, Phaser.Physics.ARCADE);
+            game.physics.enable(cannon, Phaser.Physics.ARCADE);
+            game.physics.enable(cannonBalls, Phaser.Physics.ARCADE);
 
             //start button
             startButton = game.add.button(game.world.width*.5, game.world.height*.5, "startButton", startGame, this, 1, 0, 2);
             startButton.anchor.set(.5);
 
             //music
-            music = game.add.audio("music");
+            //music = game.add.audio("music");
 
             //cursor keys
             cursors = game.input.keyboard.createCursorKeys();
 
             //setup cannon weapon
-              weapon = game.add.Weapon(1, "cannonBall");
-              weapon.bulletKillType = Phaser.weapon.KILL_WORLD_BOUNDS;
-              weapon.bulletSpeed = 400;
-              weapon.trackRotation(cannon.rotation);
+            /*
+            weapon = game.add.Weapon(1, "cannonBall");
+            weapon.bulletKillType = Phaser.weapon.KILL_WORLD_BOUNDS;
+            weapon.bulletSpeed = 400;
+            weapon.trackRotation(cannon.rotation);
+            */
 
 
-            //fire button
-            fireButton = game.input.addKey(Phaser.keyboard.SPACEBAR);
+            this.fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+            game.input.keyboard.addKeyCapture([Phaser.Keyboard.SPACEBAR]);
 
 
 
@@ -175,8 +178,12 @@
             game.physics.arcade.collide(cannonBall, emojis, ballHitsEmojis);
             game.physics.arcade.collide(cannonBall, poop, ballHitsPoop);
 
+            if (this.fireButton.onDown) {
+                fireBullet()
+            }
 
-                //rotates cannon
+
+            //rotates cannon
             cannon.rotation = game.physics.arcade.angleToPointer(cannon);
         }
 
@@ -205,8 +212,8 @@
         function startGame(){
              startButton.destroy();
              playing = true;
-             music.play("music");
-            cannon.rotation = game.physics.arcade.angleToPointer(cannon);
+             //music.play("music");
+             //cannon.rotation = game.physics.arcade.angleToPointer(cannon);
 
          }
 
@@ -227,7 +234,6 @@
                 livesText.setText("Lives: " + lifeCounter);
                 lostLivesText.visible = true;
                 cannonBall.reset();
-                cannon.reset();
                 game.input.onDown.addOnce(function () {
                     lostLivesText.visible = false;
                 }, this);
@@ -241,17 +247,17 @@
 
 
 
-   /*      function fireBullet() {
-                    if (game.time.now > cannonTime) {
-             }
+         function fireBullet() {
+            if (game.time.now > cannonTime) {
                  cannonBall = cannonBalls.getFirstExists(false);
                  if (cannonBall) {
-                    cannonBall.reset(cannonBall.x, cannonBall.y);
-                    cannonBall.body.velocity.y = -400;
+                     cannonBall.reset(cannonBall.x, cannonBall.y);
+                     cannonBall.body.velocity.y = -400;
                      cannonTime = game.time.now + 200;
                  }
 
-             }*/
+             }
+         }
 
 
 
