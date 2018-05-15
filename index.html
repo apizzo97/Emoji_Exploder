@@ -73,7 +73,7 @@
             game.load.image("arrowLeft", "assets/triangle-left.png");
 
             //start button
-            game.load.spritesheet("startButton", "assets/button.png");
+            game.load.image("startButton", "assets/button.png");
 
             //game music
 
@@ -103,6 +103,7 @@
             tears = game.add.sprite(1300, 330, "tears");
             tongue = game.add.sprite(1300, 405, "tongue");
             upsideDown = game.add.sprite(1300, 480, "upsideDown");
+            cannonBall = game.add.sprite(1300, 480, "cannonBall")
 
             //arrows
             arrowLeft = game.add.sprite(400,600,"arrowLeft");
@@ -116,26 +117,26 @@
             lives = game.add.text(1200, 610, "Lives: " + " " + lifeCounter, textStyle );
 
             //add physics
-            game.physics.startSystem(Phaser.Physics.ARCADE);
-            game.physics.enable(cannonBall, Phaser.Physics.ARCADE);
-            game.physics.enable(cat, Phaser.Physics.ARCADE);
-            game.physics.enable(heart, Phaser.Physics.ARCADE);
-            game.physics.enable(poop, Phaser.Physics.ARCADE);
-            game.physics.enable(scream, Phaser.Physics.ARCADE);
-            game.physics.enable(tears, Phaser.Physics.ARCADE);
-            game.physics.enable(tongue, Phaser.Physics.ARCADE);
-            game.physics.enable(upsideDown, Phaser.Physics.ARCADE);
-            game.physics.enable(cannon, Phaser.Physics.ARCADE);
+              game.physics.startSystem(Phaser.Physics.ARCADE);
+              game.physics.enable(cannonBall, Phaser.Physics.ARCADE);
+              game.physics.enable(cat, Phaser.Physics.ARCADE);
+              game.physics.enable(heart, Phaser.Physics.ARCADE);
+              game.physics.enable(poop, Phaser.Physics.ARCADE);
+              game.physics.enable(scream, Phaser.Physics.ARCADE);
+              game.physics.enable(tears, Phaser.Physics.ARCADE);
+              game.physics.enable(tongue, Phaser.Physics.ARCADE);
+              game.physics.enable(upsideDown, Phaser.Physics.ARCADE);
+              game.physics.enable(cannon, Phaser.Physics.ARCADE);
 
             //start button
-            startButton = game.add.button(game.world.width*.5, game.world.height*.5, "startButton", startGame, this, 1, 0, 2);
-            startButton.anchor.set(.5);
+            //startButton = game.add.button(game.world.width*.5, game.world.height*.5, "startButton", startGame, this, 1, 0, 2);
+           // startButton.anchor.set(.5);
 
             //music
             //music = game.add.audio("gameMusic");
 
             //cursor keys
-            cursors = game.input.keyboard.createCursorKeys();
+           // cursors = game.input.keyboard.createCursorKeys();
 
             //setup cannonBalls
             //cannonBalls = game.add.group("cannonBall");
@@ -155,14 +156,14 @@
         }
 
         function update() {
-            if (lifeCounter > 0) {
+            //if (lifeCounter > 0) {
                 //rotates cannonBall
                 //cannon.rotation = game.Physics.arcade.angleToPointer(cannon);
                 //if (fireButton.isDown()) {
                     //fireBullet();
                 //}
            // }
-        }
+       // }
 
         //function destroyImage(image) {
             //if (image.x <= -70) {
@@ -184,10 +185,10 @@
             //   destroyImage(tongue);
             //    game.physics.arcade.accelerateToXY(upsideDown,-90, 480, 70, 80, 80);
             //    destroyImage(upsideDown);
-        }
+       // }
 
-        function startGame(){
-             startButton.destroy();
+       // function startGame(){
+             //startButton.destroy();
              //gameLoop();
              //music.play("gameMusic");
 
