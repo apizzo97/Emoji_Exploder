@@ -1,6 +1,5 @@
 
-importScripts("phaser.min.js");
-
+//Game file used to run Emoji_Exploder
 
 var game = new Phaser.Game(1400, 700, Phaser.AUTO, "",
     {preload: preload, create: create, update: update
@@ -171,7 +170,6 @@ function update() {
     game.physics.arcade.collide(cannonBall, emojis, ballHitsEmojis);
     game.physics.arcade.collide(cannonBall, poop, ballHitsPoop);
 
-
     //rotates cannon
     cannon.rotation = game.physics.arcade.angleToPointer(cannon);
 }
@@ -230,7 +228,7 @@ function ballHitsPoop(){
 
 
 
-/*      function fireBullet() {
+     function fireBullet() {
                  if (game.time.now > cannonTime) {
           }
               cannonBall = cannonBalls.getFirstExists(false);
@@ -240,7 +238,7 @@ function ballHitsPoop(){
                   cannonTime = game.time.now + 200;
               }
 
-          }*/
+          }
 
 
 
